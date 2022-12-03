@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+// package 格式为服务进程名
+package go_wallet_manage_svr;
+
+// 注意：这里 go_package 指定的是协议生成文件 pb.go 在 git 上的地址
+option go_package = "github.com/ZuoFuhong/grpc-standard-pb/go_wallet_manage_svr";
+
+import "google/api/annotations.proto";
+
+message CreateWalletReq {
+}
+
+message CreateWalletRsp {
+  string address = 1; // 钱包地址
+}
+
+message ImportWalletReq {
+  string private_key = 1; // 私钥
+}
+
+message ImportWalletRsp {
+  string address = 1; // 钱包地址
+}
+
+service go_wallet_manage_svr {
+
+  // 创建钱包
+  rpc CreateWallet(CreateWalletReq) returns(CreateWalletRsp) {
+    option (google.api.http) = {
+      post: "/v1/create_wallet"
+      body: "*"
+    };
+  };
+
+  // 导入钱包
+  rpc ImportWallet(ImportWalletReq) returns (ImportWalletRsp) {
+    option (google.api.http) = {
+      post: "/v1/import_wallet"
+      body: "*"
+    };
+  };
+}
