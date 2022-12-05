@@ -36,7 +36,9 @@ func Test_NameResolver(t *testing.T) {
 	// 注册服务发现
 	b := NewEtcdResolverBuilder()
 	resolver.Register(b)
+	// 内置负载均衡默认的策略 pick_first，当前配置 round_robin
 	conn, err := grpc.Dial("etcd://Test/go_wallet_manage_svr",
+		grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy":"round_robin"}`),
 		grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		t.Fatal(err)
