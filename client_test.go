@@ -3,10 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
+	_ "github.com/ZuoFuhong/grpc-naming-etcd"
 	pb "github.com/ZuoFuhong/grpc_gateway_best_practices/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-	"google.golang.org/grpc/resolver"
 	"net/url"
 	"testing"
 	"time"
@@ -34,9 +34,6 @@ func Test_ParseTarget(t *testing.T) {
 }
 
 func Test_NameResolver(t *testing.T) {
-	// 注册服务发现
-	b := NewEtcdResolverBuilder()
-	resolver.Register(b)
 	// gRPC 提供两种负载均衡策略 pick_first、round_robin, 默认的策略 pick_first
 	// 自定义实现 "加权轮询" 负载策略：weighted_round_robin
 	conn, err := grpc.Dial("etcd://Test/go_wallet_manage_svr",
