@@ -3,7 +3,7 @@ module github.com/ZuoFuhong/grpc_gateway_best_practices
 go 1.18
 
 require (
-	github.com/ZuoFuhong/grpc-naming-etcd v0.0.0-20221208073321-89eab4e3928a
+	github.com/ZuoFuhong/grpc-naming-monica v0.0.0-20221210125940-4824695def21
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.14.0
 	google.golang.org/grpc v1.51.0

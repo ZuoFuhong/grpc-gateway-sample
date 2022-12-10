@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	_ "github.com/ZuoFuhong/grpc-naming-etcd"
+	_ "github.com/ZuoFuhong/grpc-naming-monica"
 	pb "github.com/ZuoFuhong/grpc_gateway_best_practices/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -13,7 +13,7 @@ import (
 )
 
 func Test_Client(t *testing.T) {
-	conn, err := grpc.Dial("127.0.0.1:1024", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.Dial("127.0.0.1:1025", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -26,7 +26,7 @@ func Test_Client(t *testing.T) {
 }
 
 func Test_ParseTarget(t *testing.T) {
-	u, err := url.Parse("etcd://Test/go_wallet_manage_svr")
+	u, err := url.Parse("monica://Test/go_wallet_manage_svr")
 	if err != nil {
 		panic(err)
 	}
@@ -36,7 +36,7 @@ func Test_ParseTarget(t *testing.T) {
 func Test_NameResolver(t *testing.T) {
 	// gRPC 提供两种负载均衡策略 pick_first、round_robin, 默认的策略 pick_first
 	// 自定义实现 "加权轮询" 负载策略：weighted_round_robin
-	conn, err := grpc.Dial("etcd://Test/go_wallet_manage_svr",
+	conn, err := grpc.Dial("monica://Test/go_wallet_manage_svr",
 		grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy":"weighted_round_robin"}`),
 		grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
