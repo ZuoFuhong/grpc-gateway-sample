@@ -46,7 +46,7 @@ curl -X POST -k http://127.0.0.1:8090/v1/echo -d '{"payload": "hello"}'
 得到响应结果：
 
 ```json
-{"address":"02efe390-2edb-4e26-a72a-ba5eac5f5b30"}
+{"payload":"world"}
 ```
 
 ## License
