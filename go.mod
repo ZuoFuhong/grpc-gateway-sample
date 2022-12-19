@@ -1,4 +1,4 @@
-module github.com/ZuoFuhong/grpc_gateway_best_practices
+module github.com/ZuoFuhong/grpc-gateway-sample
 
 go 1.18
 

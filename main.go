@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	pb "github.com/ZuoFuhong/grpc_gateway_best_practices/proto"
+	pb "github.com/ZuoFuhong/grpc-gateway-sample/proto"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"

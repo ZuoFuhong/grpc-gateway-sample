@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	pb "github.com/ZuoFuhong/grpc_gateway_best_practices/proto"
+	pb "github.com/ZuoFuhong/grpc-gateway-sample/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"testing"

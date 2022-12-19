@@ -1,4 +1,4 @@
-## gRPC-Go gateway best practices
+## gRPC-Go Gateway Sample
 
 gRPC-Gateway 是一个 protoc 插件。它读取 gRPC 服务定义并生成一个反向代理服务器，该服务器将 RESTful JSON API 转换为 gRPC。
 
