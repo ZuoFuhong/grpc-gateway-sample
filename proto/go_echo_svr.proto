@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package go_echo_svr;
+
+option go_package = "github.com/ZuoFuhong/go_echo_svr";
+
+import "google/api/annotations.proto";
+
+message EchoReq {
+  string payload = 1;
+}
+
+message EchoRsp {
+  string payload = 1;
+}
+
+service go_echo_svr {
+
+  rpc Echo(EchoReq) returns(EchoRsp) {
+    option (google.api.http) = {
+      post: "/v1/echo"
+      body: "*"
+    };
+  };
+}

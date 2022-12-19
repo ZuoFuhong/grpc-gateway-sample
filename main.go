@@ -2,9 +2,7 @@ package main
 
 import (
 	"context"
-	"github.com/ZuoFuhong/grpc-naming-monica/registry"
 	pb "github.com/ZuoFuhong/grpc_gateway_best_practices/proto"
-	"github.com/google/uuid"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -18,25 +16,12 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	serviceImpl := new(GoWalletManageSvrImpl)
+	serviceImpl := new(GoEchoSvrImpl)
 	s := grpc.NewServer()
-	pb.RegisterGoWalletManageSvrServer(s, serviceImpl)
+	pb.RegisterGoEchoSvrServer(s, serviceImpl)
 	// 1025 端口启动 gRPC Server
 	log.Println("Serving gRPC on 127.0.0.1:1025")
 	go func() {
-		// 服务注册
-		if err := registry.NewRegistry(&registry.Config{
-			Token:       "18ee7064-3cdd-4ed5-a139-fd8d9add5847",
-			Namespace:   "Test",
-			ServiceName: "go_wallet_manage_svr",
-			IP:          "127.0.0.1",
-			Port:        1025,
-			Weight:      100,
-			Metadata:    "[]",
-			HeartBeat:   5,
-		}).Register(); err != nil {
-			log.Fatalln(err)
-		}
 		log.Fatalln(s.Serve(lis))
 	}()
 
@@ -53,7 +38,7 @@ func main() {
 	}
 
 	gw := runtime.NewServeMux()
-	err = pb.RegisterGoWalletManageSvrHandler(context.Background(), gw, conn)
+	err = pb.RegisterGoEchoSvrHandler(context.Background(), gw, conn)
 	if err != nil {
 		log.Fatalln("Failed to register gateway:", err)
 	}
@@ -66,24 +51,13 @@ func main() {
 	log.Fatalln(gwServer.ListenAndServe())
 }
 
-type GoWalletManageSvrImpl struct {
+type GoEchoSvrImpl struct {
 }
 
-// CreateWallet 创建钱包
-func (s *GoWalletManageSvrImpl) CreateWallet(ctx context.Context, _ *pb.CreateWalletReq) (*pb.CreateWalletRsp, error) {
-	address := uuid.New().String()
-	rsp := &pb.CreateWalletRsp{
-		Address: address,
-	}
-	return rsp, nil
-}
-
-// ImportWallet 导入钱包
-func (s *GoWalletManageSvrImpl) ImportWallet(ctx context.Context, req *pb.ImportWalletReq) (*pb.ImportWalletRsp, error) {
-	log.Println("privKey: ", req.GetPrivateKey())
-	address := uuid.New().String()
-	rsp := &pb.ImportWalletRsp{
-		Address: address,
+func (s *GoEchoSvrImpl) Echo(ctx context.Context, req *pb.EchoReq) (*pb.EchoRsp, error) {
+	log.Println("payload:", req.GetPayload())
+	rsp := &pb.EchoRsp{
+		Payload: "world",
 	}
 	return rsp, nil
 }
