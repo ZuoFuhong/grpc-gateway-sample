@@ -48,3 +48,7 @@ curl -X POST -k http://127.0.0.1:8090/v1/echo -d '{"payload": "hello"}'
 ```json
 {"address":"02efe390-2edb-4e26-a72a-ba5eac5f5b30"}
 ```
+
+## License
+
+This project is licensed under the [Apache 2.0 license](https://github.com/ZuoFuhong/grpc-gateway-sample/blob/master/LICENSE).
